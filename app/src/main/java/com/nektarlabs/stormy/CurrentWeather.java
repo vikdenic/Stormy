@@ -13,7 +13,7 @@ public class CurrentWeather {
     private long mTime;
     private double mTemperature;
     private double mHumidity;
-    private double mPrecipChange;
+    private double mPrecipChance;
     private String mSummary;
     private String mTimeZone;
 
@@ -102,12 +102,13 @@ public class CurrentWeather {
         mHumidity = humidity;
     }
 
-    public double getPrecipChange() {
-        return mPrecipChange;
+    public int getPrecipChance() {
+        double precipPercentage = mPrecipChance * 100;
+        return (int) Math.round(precipPercentage);
     }
 
-    public void setPrecipChange(double precipChange) {
-        mPrecipChange = precipChange;
+    public void setPrecipChance(double precipChance) {
+        mPrecipChance = precipChance;
     }
 
     public String getSummary() {

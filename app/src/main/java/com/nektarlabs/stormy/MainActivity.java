@@ -103,6 +103,8 @@ public class MainActivity extends Activity {
         mTemperatureTextView.setText(mCurrentWeather.getTemperature() + "");
         mTimeTextView.setText("At " + mCurrentWeather.getFormattedTime() + " it will be");
         mHumidityValue.setText(mCurrentWeather.getHumidity() + "");
+        mPrecipTextView.setText(mCurrentWeather.getPrecipChance() + "%");
+        mSummaryTextView.setText(mCurrentWeather.getSummary());
     }
 
     private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
@@ -115,7 +117,7 @@ public class MainActivity extends Activity {
         currentWeather.setHumidity(currently.getDouble("humidity"));
         currentWeather.setTime(currently.getLong("time"));
         currentWeather.setIcon(currently.getString("icon"));
-        currentWeather.setPrecipChange(currently.getDouble("precipProbability"));
+        currentWeather.setPrecipChance(currently.getDouble("precipProbability"));
         currentWeather.setSummary(currently.getString("summary"));
         currentWeather.setTemperature(currently.getDouble("temperature"));
         currentWeather.setTimeZone(timezone);

@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="PRECIPIATION"
-                android:id="@+id/precipTextView"
+                android:id="@+id/precipLabel"
                 android:textColor="#80ffffff"
                 android:gravity="center_horizontal"/>
 
@@ -109,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="100%"
-                android:id="@+id/textView2"
+                android:id="@+id/precipTextView"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 android:gravity="center_horizontal"/>
