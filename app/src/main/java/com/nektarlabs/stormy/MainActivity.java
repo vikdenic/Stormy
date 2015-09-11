@@ -69,6 +69,13 @@ public class MainActivity extends Activity {
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
                             mCurrentWeather = getCurrentDetails(jsonData);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateDisplay();
+                                }
+                            });
                         } else {
                             alertUserAboutError();
                         }
@@ -92,6 +99,12 @@ public class MainActivity extends Activity {
         Log.d(TAG, "Main UI code is running");
     }
 
+    private void updateDisplay() {
+        mTemperatureTextView.setText(mCurrentWeather.getTemperature() + "");
+        mTimeTextView.setText("At " + mCurrentWeather.getFormattedTime() + " it will be");
+        mHumidityValue.setText(mCurrentWeather.getHumidity() + "");
+    }
+
     private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
         JSONObject forecast = new JSONObject(jsonData);
         String timezone = forecast.getString("timezone");
@@ -104,10 +117,12 @@ public class MainActivity extends Activity {
         currentWeather.setIcon(currently.getString("icon"));
         currentWeather.setPrecipChange(currently.getDouble("precipProbability"));
         currentWeather.setSummary(currently.getString("summary"));
+        currentWeather.setTemperature(currently.getDouble("temperature"));
         currentWeather.setTimeZone(timezone);
 
         Log.d(TAG, currentWeather.getFormattedTime());
-        return new CurrentWeather();
+
+        return currentWeather;
     }
 
     private boolean isNetworkAvailable() {
