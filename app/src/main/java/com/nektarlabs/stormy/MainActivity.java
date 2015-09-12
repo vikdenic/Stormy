@@ -2,10 +2,12 @@ package com.nektarlabs.stormy;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class MainActivity extends Activity {
     @Bind(R.id.precipTextView) TextView mPrecipTextView;
     @Bind(R.id.summaryTextView) TextView mSummaryTextView;
     @Bind(R.id.iconImageView) ImageView mIconImageView;
+    @Bind(R.id.refreshImageView) ImageView mRefreshImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,23 @@ public class MainActivity extends Activity {
 
         ButterKnife.bind(this);
 
+        final double latitude = 37.8627;
+        final double longitude = -122.423;
+
+        mRefreshImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getForecast(latitude, longitude);
+            }
+        });
+
+        getForecast(latitude, longitude);
+
+        Log.d(TAG, "Main UI code is running");
+    }
+
+    private void getForecast(double latitude, double longitude) {
         String apiKey = "6e46fb2e1acef97d5bb8b75d4e5c9e5a";
-        double latitude = 37.8627;
-        double longitude = -122.423;
         String forecastUrl = "https://api.forecast.io/forecast/" + apiKey + "/" + latitude + "," + longitude;
 
         if(isNetworkAvailable()) {
@@ -95,8 +112,6 @@ public class MainActivity extends Activity {
             Toast.makeText(this, R.string.network_unavailable_message,
                     Toast.LENGTH_LONG).show();
         }
-
-        Log.d(TAG, "Main UI code is running");
     }
 
     private void updateDisplay() {
@@ -105,6 +120,9 @@ public class MainActivity extends Activity {
         mHumidityValue.setText(mCurrentWeather.getHumidity() + "");
         mPrecipTextView.setText(mCurrentWeather.getPrecipChance() + "%");
         mSummaryTextView.setText(mCurrentWeather.getSummary());
+
+        Drawable drawable = getResources().getDrawable(mCurrentWeather.getIconId());
+        mIconImageView.setImageDrawable(drawable);
     }
 
     private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
