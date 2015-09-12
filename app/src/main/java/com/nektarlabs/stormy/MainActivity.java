@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
     @Bind(R.id.summaryTextView) TextView mSummaryTextView;
     @Bind(R.id.iconImageView) ImageView mIconImageView;
     @Bind(R.id.refreshImageView) ImageView mRefreshImageView;
+    @Bind(R.id.mProgressBar) ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        mProgressBar.setVisibility(View.INVISIBLE);
 
         final double latitude = 37.8627;
         final double longitude = -122.423;
@@ -67,6 +71,8 @@ public class MainActivity extends Activity {
         String forecastUrl = "https://api.forecast.io/forecast/" + apiKey + "/" + latitude + "," + longitude;
 
         if(isNetworkAvailable()) {
+            toggleRefresh();
+
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(forecastUrl)
@@ -76,11 +82,13 @@ public class MainActivity extends Activity {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-
+                    toggleRefresh();
+                    alertUserAboutError();
                 }
 
                 @Override
                 public void onResponse(Response response) throws IOException {
+                    toggleRefresh();
                     try {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
@@ -96,8 +104,7 @@ public class MainActivity extends Activity {
                         } else {
                             alertUserAboutError();
                         }
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     }
                     //Catches the exception from getCurrentDetails (see throws JSONException
@@ -112,6 +119,22 @@ public class MainActivity extends Activity {
             Toast.makeText(this, R.string.network_unavailable_message,
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void toggleRefresh() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mProgressBar.getVisibility() == View.INVISIBLE) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    mRefreshImageView.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    mRefreshImageView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void updateDisplay() {
