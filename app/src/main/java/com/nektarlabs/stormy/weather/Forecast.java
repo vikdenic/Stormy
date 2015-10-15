@@ -6,7 +6,7 @@ package com.nektarlabs.stormy.weather;
 public class Forecast {
     private Current mCurrent;
     private Hour[] mHourlyForecast;
-    private Day mDailyForecast;
+    private Day[] mDailyForecast;
 
     public Current getCurrent() {
         return mCurrent;
@@ -24,11 +24,11 @@ public class Forecast {
         mHourlyForecast = hourlyForecast;
     }
 
-    public Day getDailyForecast() {
+    public Day[] getDailyForecast() {
         return mDailyForecast;
     }
 
-    public void setDailyForecast(Day dailyForecast) {
+    public void setDailyForecast(Day[] dailyForecast) {
         mDailyForecast = dailyForecast;
     }
 }
