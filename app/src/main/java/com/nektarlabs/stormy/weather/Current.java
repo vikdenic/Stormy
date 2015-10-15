@@ -1,4 +1,6 @@
-package com.nektarlabs.stormy;
+package com.nektarlabs.stormy.weather;
+
+import com.nektarlabs.stormy.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +9,7 @@ import java.util.TimeZone;
 /**
  * Created by viktordenic on 9/1/15.
  */
-public class CurrentWeather {
+public class Current {
 
     private String mIcon;
     private long mTime;
