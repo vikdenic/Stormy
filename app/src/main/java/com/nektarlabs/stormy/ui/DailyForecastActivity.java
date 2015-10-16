@@ -1,6 +1,7 @@
 package com.nektarlabs.stormy.ui;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.nektarlabs.stormy.R;
@@ -15,6 +16,9 @@ public class DailyForecastActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_forecast);
+
+        Intent intent = getIntent();
+        mDays = intent.getParcelableArrayExtra(MainActivity.DAILY_FORECAST);
 
 //        String[] daysOfTheWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 //
