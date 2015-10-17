@@ -92,6 +92,11 @@ public class Day implements Parcelable {
         mTimezone = in.readString();
     }
 
+    public Day()
+    {
+
+    }
+
     public static final Creator <Day> CREATOR = new Creator<Day>() {
         @Override
         public Day createFromParcel(Parcel source) {
@@ -102,5 +107,5 @@ public class Day implements Parcelable {
         public Day[] newArray(int size) {
             return new Day[size];
         }
-    }
+    };
 }
