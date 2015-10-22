@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nektarlabs.stormy.HourlyForecastActivity;
 import com.nektarlabs.stormy.R;
 import com.nektarlabs.stormy.weather.Current;
 import com.nektarlabs.stormy.weather.Day;
