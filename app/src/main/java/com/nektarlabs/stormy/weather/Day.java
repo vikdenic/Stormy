@@ -11,6 +11,7 @@ import java.util.TimeZone;
  * Created by viktordenic on 10/14/15.
  */
 public class Day implements Parcelable {
+
     private long mTime;
     private String mSummary;
     private double mTemperatureMax;

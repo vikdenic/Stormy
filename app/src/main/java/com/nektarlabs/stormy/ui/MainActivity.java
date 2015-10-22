@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nektarlabs.stormy.HourlyForecastActivity;
 import com.nektarlabs.stormy.R;
 import com.nektarlabs.stormy.weather.Current;
 import com.nektarlabs.stormy.weather.Day;
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String DAILY_FORECAST = "DAILY_FORECAST";
+    public static final String HOURLY_FORECAST = "HOURLY_FORECAST";
 
     private Forecast mForecast;
 
@@ -264,4 +266,10 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    @OnClick (R.id.hourlyButton)
+    public void startHourlyActivity(View view) {
+        Intent intent = new Intent (this, HourlyForecastActivity.class);
+        intent.putExtra(HOURLY_FORECAST, mForecast.getHourlyForecast());
+        startActivity(intent);
+    }
 }
