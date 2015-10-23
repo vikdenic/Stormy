@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nektarlabs.stormy.R;
+import com.nektarlabs.stormy.weather.Hour;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,6 +17,11 @@ import butterknife.ButterKnife;
  * Created by viktordenic on 10/23/15.
  */
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
+
+    @Bind(R.id.timeLabel) TextView mTimeLabel;
+    @Bind(R.id.summaryLabel) TextView mSummaryLabel;
+    @Bind(R.id.temperatureLabel) TextView mTemperatureLabel;
+    @Bind(R.id.iconImageView) ImageView mIconImageView;
 
     @Override
     public HourViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,15 +41,17 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
 
     public class HourViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.timeLabel) TextView mTimeLabel;
-        @Bind(R.id.summaryLabel) TextView mSummaryLabel;
-        @Bind(R.id.temperatureLabel) TextView mProgressBar;
-        @Bind(R.id.iconImageView) ImageView mIconImageView;
-
         public HourViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void BindHour(Hour hour) {
+        mTimeLabel.setText(hour.getHourOfDay());
+        mSummaryLabel.setText(hour.getSummary());
+        mTemperatureLabel.setText(hour.getTemperature() + "");
+        mIconImageView.setImageResource(hour.getIconId());
     }
 }
